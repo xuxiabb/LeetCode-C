@@ -1,11 +1,11 @@
 /*
- * Filename: hal_board_cfg.h
+ * Filename: 
  * 
- * Description: Declarations for the SM14Z2530(CC2530EM) used on the SmartRF05EB or CC Debugger.
+ * Description: 
  * 
  * Change Logs:
  * Date         Author      Version     Notes
- * 2017-12-12   Xu          1.0.0       the first version
+ * 2018-03-11   Xu          1.0.0       the first version
  */
 
 /* INCLUDES */
@@ -30,8 +30,8 @@ struct object
 /* LOCAL VARIABLES */
 
 /* LOCAL FUNCTIONS */
-static int compare(const void *a, const void *b);
-int *twoSum(int *nums, int numsSize, int target);
+static int compare(const void * a, const void * b);
+int * twoSum(int * nums, int numsSize, int target);
 
     /*
  * @fn main
@@ -40,7 +40,7 @@ int *twoSum(int *nums, int numsSize, int target);
  * 
  * @param none
  * 
- * @return none
+ * @return none 
  */
     int main(void)
 {
@@ -74,7 +74,7 @@ int *twoSum(int *nums, int numsSize, int target);
  * 
  * @return
  */
-static int compare(const void *a, const void *b)
+static int compare(const void * a, const void * b)
 {
     return ((struct object *)a)->val - ((struct object *)b)->val;
 }
@@ -90,10 +90,10 @@ static int compare(const void *a, const void *b)
  * 
  * @return
  */
-static int *twosum(int *nums, int numsSize, int target)
+static int * twosum(int * nums, int numsSize, int target)
 {
     int i, j;
-    struct object *objs = malloc(numsSize * sizeof(*objs));
+    struct object * objs = malloc(numsSize * sizeof(*objs));
     for (i = 0; i < numsSize; i++)
     {
         objs[i].val = nums[i];
