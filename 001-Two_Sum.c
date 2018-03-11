@@ -1,40 +1,131 @@
+/*
+ * Filename: hal_board_cfg.h
+ * 
+ * Description: Declarations for the SM14Z2530(CC2530EM) used on the SmartRF05EB or CC Debugger.
+ * 
+ * Change Logs:
+ * Date         Author      Version     Notes
+ * 2017-12-12   Xu          1.0.0       the first version
+ */
+
+/* INCLUDES */
 #include <stdio.h>
+#include <stdlib.h>
 
-int * twoSum(int *nums, int numsSize, int target)
+/* MACROS */
 
-int main(void)
+/* CONSTANTS */
+
+/* TYPEDEFS */
+struct object
 {
-    const int numsSize = 4;
-    int * nums;
-    nums = (int *) malloc(numsSize * sizeof(int));
-     = {2, 7, 11, 15};
-    int target = 9; 
-    int * result = twoSum(nums, numsSize, target);
-    printf("%d %d\n", &result[0], &result[1]);
+    int val;
+    int index;
+};
+
+/* GLOBAL VARIABLES */
+
+/* GLOBAL FUNCTIONS */
+
+/* LOCAL VARIABLES */
+
+/* LOCAL FUNCTIONS */
+static int compare(const void *a, const void *b);
+int *twoSum(int *nums, int numsSize, int target);
+
+    /*
+ * @fn main
+ * 
+ * @brief none
+ * 
+ * @param none
+ * 
+ * @return none
+ */
+    int main(void)
+{
+    //int nums[] = {-1, -2, -3, -4, -5};
+    //int target = -8;
+    //int nums[] = {0,4,3,0};
+    //int target = 0;
+    int nums[] = {3, 2, 3};
+    int count = sizeof(nums) / sizeof(*nums);
+    int target = 6;
+    int *indexes = twosum(nums, count, target);
+    if (indexes != NULL)
+    {
+        printf("%d %d\n", indexes[0], indexes[1]);
+    }
+    else
+    {
+        printf("Not found\n");
+    }
 
     return 0;
 }
 
-int * twoSum(int *nums, int numsSize, int target)
+/*
+ * @fn compare
+ * 
+ * @brief none
+ * 
+ * @param const void *a
+ * @param const void *b
+ * 
+ * @return
+ */
+static int compare(const void *a, const void *b)
 {
-    const int numsum_size;
-    numsum_size = numsSize * （numsSize - 1） / 2;
-    int numsum[numsum_size][3];
-    int i, j;
+    return ((struct object *)a)->val - ((struct object *)b)->val;
+}
 
-    for (i = 0; i < numsum_size; i++)
+/*
+ * @fn twoSum
+ * 
+ * @brief none
+ * 
+ * @param int * nums -
+ * @param int numsSize 
+ * @param int target 
+ * 
+ * @return
+ */
+static int *twosum(int *nums, int numsSize, int target)
+{
+    int i, j;
+    struct object *objs = malloc(numsSize * sizeof(*objs));
+    for (i = 0; i < numsSize; i++)
     {
-        for (j = 1; j < numsum_size; j++)
-        numsum[i][0] = nums[i];
-        numsum[i][1] = nums[j];
-        numsum[i][2] = nums[i] + num[j];
-        if (numsum[i][2] = taget)
+        objs[i].val = nums[i];
+        objs[i].index = i;
+    }
+    qsort(objs, numsSize, sizeof(*objs), compare);
+
+    int count = 0;
+    int *results = malloc(2 * sizeof(int));
+    i = 0;
+    j = numsSize - 1;
+    while (i < j)
+    {
+        int diff = target - objs[i].val;
+        if (diff > objs[j].val)
         {
-            return numsum[i];
+            while (++i < j && objs[i].val == objs[i - 1].val)
+            {
+            }
+        }
+        else if (diff < objs[j].val)
+        {
+            while (--j > i && objs[j].val == objs[j + 1].val)
+            {
+            }
         }
         else
         {
-            ;
+            results[0] = objs[i].index;
+            results[1] = objs[j].index;
+            return results;
         }
     }
+    return NULL;
 }
